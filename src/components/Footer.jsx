@@ -18,16 +18,6 @@ export default function Footer({ onReplayIntro }) {
   const inView = useInView(ref, { once: true, amount: 0.05 })
   const shouldReduceMotion = useReducedMotion()
 
-  const [copiedField, setCopiedField] = useState(null)
-
-  const copyToClipboard = (text, fieldName) => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text)
-      setCopiedField(fieldName)
-      setTimeout(() => setCopiedField(null), 2200)
-    }
-  }
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -105,7 +95,7 @@ export default function Footer({ onReplayIntro }) {
                 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 5rem)' }}
               >
                 Let&apos;s run your facility{' '}
-                <span className="text-brand-red underline decoration-brand-red/50 decoration-wavy underline-offset-8">
+                <span className="text-brand-red">
                   right.
                 </span>
               </h2>
@@ -130,14 +120,7 @@ export default function Footer({ onReplayIntro }) {
                     +91 98407 12768
                   </a>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => copyToClipboard('+919840712768', 'phone')}
-                    className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-heading font-medium transition-colors cursor-pointer"
-                    title="Copy phone number"
-                  >
-                    {copiedField === 'phone' ? '✓ Copied' : 'Copy'}
-                  </button>
+                <div className="flex items-center">
                   <a
                     href="tel:+919840712768"
                     className="p-2.5 rounded-full bg-brand-red text-white hover:bg-brand-red-light transition-all shadow-md shadow-brand-red/30"
@@ -163,14 +146,7 @@ export default function Footer({ onReplayIntro }) {
                     care@g1ops.in
                   </a>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => copyToClipboard('care@g1ops.in', 'email')}
-                    className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-heading font-medium transition-colors cursor-pointer"
-                    title="Copy email address"
-                  >
-                    {copiedField === 'email' ? '✓ Copied' : 'Copy'}
-                  </button>
+                <div className="flex items-center">
                   <a
                     href="mailto:care@g1ops.in"
                     className="p-2.5 rounded-full bg-white/10 text-white hover:bg-white/25 transition-all"
@@ -230,8 +206,8 @@ export default function Footer({ onReplayIntro }) {
             </div>
           </div>
 
-          {/* Core Capabilities Card */}
-          <div className="md:col-span-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] p-6 sm:p-7 hover:border-white/12 transition-all duration-300 flex flex-col justify-between">
+          {/* Core Capabilities Card (Hidden on mobile) */}
+          <div className="hidden md:flex md:col-span-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] p-6 sm:p-7 hover:border-white/12 transition-all duration-300 flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-5">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />

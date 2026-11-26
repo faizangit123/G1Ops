@@ -29,23 +29,23 @@ export default function IntroAnimation({ onComplete }) {
   const onCompleteRef = useRef(onComplete)
   onCompleteRef.current = onComplete
 
-  const percent = useAnimatedCounter(100, 1800)
+  const percent = useAnimatedCounter(100, 750)
 
-  // Phase scheduling — smooth, carefully timed sequence
+  // Phase scheduling — brisk, snappy, yet premium sequence
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 100),    // Horizon line expands
-      setTimeout(() => setPhase(2), 500),    // Logo rises in
-      setTimeout(() => setPhase(3), 1400),   // Motto + tagline fade in
-      setTimeout(() => setPhase(4), 3200),   // Begin exit
-      setTimeout(() => onCompleteRef.current(), 4100), // Hand over to home
+      setTimeout(() => setPhase(1), 50),     // Horizon line expands
+      setTimeout(() => setPhase(2), 250),    // Logo rises in
+      setTimeout(() => setPhase(3), 650),    // Motto + tagline fade in
+      setTimeout(() => setPhase(4), 1450),   // Begin exit
+      setTimeout(() => onCompleteRef.current(), 1950), // Hand over to home
     ]
     return () => timers.forEach(clearTimeout)
   }, [])
 
   const handleSkip = useCallback(() => {
     setPhase(4)
-    setTimeout(() => onCompleteRef.current(), 600)
+    setTimeout(() => onCompleteRef.current(), 350)
   }, [])
 
   // Shared spring-like ease
@@ -59,7 +59,7 @@ export default function IntroAnimation({ onComplete }) {
         className="absolute top-0 inset-x-0 h-1/2 bg-brand-navy z-20"
         initial={{ y: 0 }}
         animate={phase >= 4 ? { y: '-100%' } : { y: 0 }}
-        transition={{ duration: 0.9, ease: shutterEase }}
+        transition={{ duration: 0.55, ease: shutterEase }}
       />
 
       {/* ─── BOTTOM SHUTTER ─── */}
@@ -67,7 +67,7 @@ export default function IntroAnimation({ onComplete }) {
         className="absolute bottom-0 inset-x-0 h-1/2 bg-brand-navy z-20"
         initial={{ y: 0 }}
         animate={phase >= 4 ? { y: '100%' } : { y: 0 }}
-        transition={{ duration: 0.9, ease: shutterEase }}
+        transition={{ duration: 0.55, ease: shutterEase }}
       />
 
       {/* ─── Thin red split line at seam ─── */}
@@ -81,7 +81,7 @@ export default function IntroAnimation({ onComplete }) {
               ? { scaleX: 1, opacity: 1 }
               : { scaleX: 0, opacity: 0 }
         }
-        transition={{ duration: phase >= 4 ? 0.3 : 0.7, ease: smoothEase }}
+        transition={{ duration: phase >= 4 ? 0.2 : 0.45, ease: smoothEase }}
       />
 
       {/* ─── CENTER CONTENT LAYER ─── */}
@@ -89,10 +89,10 @@ export default function IntroAnimation({ onComplete }) {
         className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6"
         animate={
           phase >= 4
-            ? { opacity: 0, scale: 1.08, filter: 'blur(6px)' }
+            ? { opacity: 0, scale: 1.06, filter: 'blur(5px)' }
             : { opacity: 1, scale: 1, filter: 'blur(0px)' }
         }
-        transition={{ duration: 0.65, ease: smoothEase }}
+        transition={{ duration: 0.45, ease: smoothEase }}
       >
         {/* Ambient Red Glow — fades in gently */}
         <motion.div
@@ -153,15 +153,15 @@ export default function IntroAnimation({ onComplete }) {
             className="w-full h-px bg-gradient-to-r from-transparent via-brand-red/60 to-transparent mb-8"
             initial={{ scaleX: 0, opacity: 0 }}
             animate={phase >= 1 ? { scaleX: 1, opacity: 1 } : {}}
-            transition={{ duration: 1, ease: smoothEase }}
+            transition={{ duration: 0.55, ease: smoothEase }}
           />
 
           {/* Logo Reveal — rises from below with gentle scale */}
           <motion.div
             className="flex justify-center mb-6 overflow-hidden"
-            initial={{ opacity: 0, y: 40, scale: 0.9 }}
+            initial={{ opacity: 0, y: 30, scale: 0.92 }}
             animate={phase >= 2 ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ duration: 0.9, ease: smoothEase }}
+            transition={{ duration: 0.55, ease: smoothEase }}
           >
             <Logo className="w-64 sm:w-80 md:w-[420px] h-auto drop-shadow-[0_10px_25px_rgba(250,0,0,0.25)]" variant="white" />
           </motion.div>
@@ -171,7 +171,7 @@ export default function IntroAnimation({ onComplete }) {
             className="flex items-center justify-center gap-3 sm:gap-6 my-4 overflow-hidden"
             initial={{ opacity: 0 }}
             animate={phase >= 3 ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
           >
             {['QUALITY', '—', 'INTEGRITY', '—', 'EXCELLENCE'].map((word, idx) => (
               <motion.span
@@ -179,11 +179,11 @@ export default function IntroAnimation({ onComplete }) {
                 className={`font-heading text-xs sm:text-sm font-bold tracking-[0.22em] ${
                   word === '—' ? 'text-brand-red' : 'text-white/80'
                 }`}
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={phase >= 3 ? { opacity: 1, y: 0 } : {}}
                 transition={{
-                  duration: 0.5,
-                  delay: idx * 0.08,
+                  duration: 0.35,
+                  delay: idx * 0.05,
                   ease: smoothEase,
                 }}
               >
@@ -195,9 +195,9 @@ export default function IntroAnimation({ onComplete }) {
           {/* Subtitle */}
           <motion.p
             className="font-body text-xs sm:text-sm text-white/50 tracking-wider max-w-md mt-2 font-light"
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 6 }}
             animate={phase >= 3 ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.35, ease: smoothEase }}
+            transition={{ duration: 0.4, delay: 0.2, ease: smoothEase }}
           >
             Facility services you never think about.
           </motion.p>
@@ -207,7 +207,7 @@ export default function IntroAnimation({ onComplete }) {
             className="w-48 h-0.5 bg-brand-red rounded-full mt-6"
             initial={{ scaleX: 0 }}
             animate={phase >= 3 ? { scaleX: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.4, ease: smoothEase }}
+            transition={{ duration: 0.45, delay: 0.25, ease: smoothEase }}
           />
         </div>
       </motion.div>

@@ -30,7 +30,7 @@ export default function ServiceHero() {
       return undefined;
     }
 
-    const timer = window.setTimeout(() => setShowTitle(true), 2410);
+    const timer = window.setTimeout(() => setShowTitle(true), 400);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -46,7 +46,7 @@ export default function ServiceHero() {
             src={person.src}
             alt={person.alt}
             className={`service-hero-from-${person.side} h-[32svh] w-[38%] max-w-[150px] object-contain object-top`}
-            style={{ '--service-hero-delay': `${person.order * 0.32}s` }}
+            style={{ '--service-hero-delay': `${person.order * 0.1}s` }}
           />
         ))}
       </div>
@@ -59,7 +59,7 @@ export default function ServiceHero() {
               src={person.src}
               alt={person.alt}
               className="service-hero-from-left h-full w-[60%] max-w-[360px] object-contain object-bottom"
-              style={{ '--service-hero-delay': `${person.order * 0.32}s` }}
+              style={{ '--service-hero-delay': `${person.order * 0.1}s` }}
             />
           ))}
         </div>
@@ -70,7 +70,7 @@ export default function ServiceHero() {
               src={person.src}
               alt={person.alt}
               className="service-hero-from-right h-full w-[60%] max-w-[360px] object-contain object-bottom"
-              style={{ '--service-hero-delay': `${person.order * 0.32}s` }}
+              style={{ '--service-hero-delay': `${person.order * 0.1}s` }}
             />
           ))}
         </div>
