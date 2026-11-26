@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { motion, useInView, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { motion, AnimatePresence, useInView, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
 const pillars = [
   {
@@ -127,7 +127,7 @@ export default function ServicesSection() {
             </span>
           </div>
 
-          {/* Desktop & Tablet: Silky-Smooth Flex Expanding Gallery (Zero Text Distortion) */}
+          {/* Desktop & Tablet: Silky-Smooth Flex Expanding Gallery */}
           <div className="hidden md:flex gap-4 items-stretch min-h-[500px]">
             {pillars.map((pillar) => {
               const isActive = activePillarId === pillar.id
@@ -143,45 +143,67 @@ export default function ServicesSection() {
                   style={{
                     flex: isActive ? 2.5 : 0.95,
                     transition:
-                      'flex 0.55s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease',
+                      'flex 0.65s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, padding 0.65s cubic-bezier(0.16, 1, 0.3, 1)',
+                    padding: isActive ? '2.5rem' : '1.75rem',
                   }}
                   className={`group relative rounded-3xl cursor-pointer overflow-hidden border flex flex-col justify-between ${
                     isActive
-                      ? 'p-8 sm:p-10 bg-gradient-to-r from-brand-red/[0.08] via-white/[0.04] to-white/[0.02] border-brand-red/50 shadow-2xl shadow-brand-red/10'
-                      : 'p-6 sm:p-7 bg-white/[0.02] hover:bg-white/[0.04] border-white/[0.08] hover:border-white/20'
+                      ? 'bg-gradient-to-r from-brand-red/[0.08] via-white/[0.04] to-white/[0.02] border-brand-red/50 shadow-2xl shadow-brand-red/10'
+                      : 'bg-white/[0.02] hover:bg-white/[0.04] border-white/[0.08] hover:border-white/20'
                   }`}
                 >
-                  {/* Subtle Inner Glow on Active Pillar */}
-                  {isActive && (
-                    <div className="pointer-events-none absolute -top-24 -right-24 w-80 h-80 rounded-full bg-brand-red/[0.12] blur-3xl" />
-                  )}
+                  {/* Subtle Inner Glow — always rendered, opacity transitions */}
+                  <div
+                    className="pointer-events-none absolute -top-24 -right-24 w-80 h-80 rounded-full bg-brand-red/[0.12] blur-3xl"
+                    style={{
+                      opacity: isActive ? 1 : 0,
+                      transition: 'opacity 0.6s ease',
+                    }}
+                  />
 
                   {/* Top Bar */}
                   <div className="relative z-10 flex items-center justify-between pb-4 border-b border-white/10">
                     <span className="font-heading text-xs sm:text-sm font-bold tracking-widest text-brand-red uppercase">
                       COMMITMENT {pillar.num}
                     </span>
-                    {isActive ? (
-                      <span className="font-mono text-xs text-white/70 bg-white/10 px-3 py-1 rounded-full border border-white/10">
+                    <div className="relative flex items-center">
+                      {/* Metric pill — always rendered, fades in/out */}
+                      <span
+                        className="font-mono text-xs text-white/70 bg-white/10 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap"
+                        style={{
+                          opacity: isActive ? 1 : 0,
+                          transform: isActive ? 'scale(1)' : 'scale(0.85)',
+                          transition: 'opacity 0.4s ease, transform 0.4s ease',
+                        }}
+                      >
                         {pillar.metric}
                       </span>
-                    ) : (
-                      <span className="w-2 h-2 rounded-full bg-white/20 group-hover:bg-brand-red transition-colors" />
-                    )}
+                      {/* Dot indicator — fades in when inactive */}
+                      <span
+                        className="w-2 h-2 rounded-full bg-white/20 group-hover:bg-brand-red absolute right-0"
+                        style={{
+                          opacity: isActive ? 0 : 1,
+                          transition: 'opacity 0.3s ease, background-color 0.3s ease',
+                        }}
+                      />
+                    </div>
                   </div>
 
                   {/* Body with Editorial Serif Typography */}
-                  <div className="relative z-10 my-6">
-                    {/* Serif Heading (like Image 1 CBRE) */}
+                  <div className="relative z-10 my-6 flex-1">
+                    {/* Serif Heading — font-size transitions via CSS */}
                     <div className="mb-2">
                       <h4
-                        className={`font-display font-[700] tracking-normal leading-none transition-colors duration-300 ${
-                          isActive ? 'text-white' : 'text-white/45 group-hover:text-white/75'
-                        }`}
+                        className="font-display font-[700] tracking-normal leading-none"
                         style={{
                           fontSize: isActive
                             ? 'clamp(2.8rem, 4.6vw, 4.6rem)'
                             : 'clamp(1.6rem, 2.2vw, 2.4rem)',
+                          color: isActive
+                            ? 'rgba(255,255,255,1)'
+                            : 'rgba(255,255,255,0.45)',
+                          transition:
+                            'font-size 0.65s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease',
                         }}
                       >
                         {pillar.word}
@@ -189,58 +211,96 @@ export default function ServicesSection() {
                     </div>
 
                     <span
-                      className={`font-heading uppercase text-brand-red font-bold block mb-4 transition-all duration-300 ${
-                        isActive ? 'text-xs tracking-widest' : 'text-[0.7rem] tracking-wider'
-                      }`}
+                      className="font-heading uppercase text-brand-red font-bold block mb-4"
+                      style={{
+                        fontSize: isActive ? '0.75rem' : '0.7rem',
+                        letterSpacing: isActive ? '0.15em' : '0.1em',
+                        transition: 'font-size 0.5s ease, letter-spacing 0.5s ease',
+                      }}
                     >
                       {pillar.subtitle}
                     </span>
 
-                    {/* Smooth Content Fade */}
+                    {/* Expanded content — AnimatePresence for smooth enter/exit */}
                     <div className="relative overflow-hidden">
-                      {isActive ? (
-                        <div className="space-y-6 pt-2 transition-opacity duration-400 ease-out">
-                          <p className="font-body text-sm sm:text-base text-white/75 leading-relaxed font-normal max-w-xl">
-                            {pillar.description}
-                          </p>
+                      <AnimatePresence mode="wait">
+                        {isActive ? (
+                          <motion.div
+                            key={`${pillar.id}-expanded`}
+                            initial={{ opacity: 0, height: 0, y: 8 }}
+                            animate={{ opacity: 1, height: 'auto', y: 0 }}
+                            exit={{ opacity: 0, height: 0, y: 8 }}
+                            transition={{
+                              opacity: { duration: 0.35, ease: 'easeOut' },
+                              height: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+                              y: { duration: 0.35, ease: 'easeOut' },
+                            }}
+                            className="space-y-6 pt-2"
+                          >
+                            <p className="font-body text-sm sm:text-base text-white/75 leading-relaxed font-normal max-w-xl">
+                              {pillar.description}
+                            </p>
 
-                          <div>
-                            <span className="text-[0.68rem] font-heading uppercase tracking-widest text-white/40 font-semibold block mb-3">
-                              Key Standards & Commitments:
-                            </span>
-                            <div className="space-y-2.5">
-                              {pillar.deliverables.map((item, idx) => (
-                                <div
-                                  key={idx}
-                                  className="flex items-start gap-2.5 text-xs sm:text-sm text-white/80 font-body"
-                                >
-                                  <span className="text-brand-red font-bold mt-0.5">✓</span>
-                                  <span>{item}</span>
-                                </div>
-                              ))}
+                            <div>
+                              <span className="text-[0.68rem] font-heading uppercase tracking-widest text-white/40 font-semibold block mb-3">
+                                Key Standards & Commitments:
+                              </span>
+                              <div className="space-y-2.5">
+                                {pillar.deliverables.map((item, idx) => (
+                                  <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, x: -8 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{
+                                      delay: 0.15 + idx * 0.08,
+                                      duration: 0.35,
+                                      ease: 'easeOut',
+                                    }}
+                                    className="flex items-start gap-2.5 text-xs sm:text-sm text-white/80 font-body"
+                                  >
+                                    <span className="text-brand-red font-bold mt-0.5">✓</span>
+                                    <span>{item}</span>
+                                  </motion.div>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="relative">
-                          <p className="font-body text-xs text-white/40 line-clamp-2 leading-relaxed">
-                            {pillar.description}
-                          </p>
-                          <div className="pointer-events-none absolute bottom-0 inset-x-0 h-4 bg-gradient-to-t from-brand-navy to-transparent" />
-                        </div>
-                      )}
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key={`${pillar.id}-collapsed`}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="relative"
+                          >
+                            <p className="font-body text-xs text-white/40 line-clamp-2 leading-relaxed">
+                              {pillar.description}
+                            </p>
+                            <div className="pointer-events-none absolute bottom-0 inset-x-0 h-4 bg-gradient-to-t from-brand-navy to-transparent" />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
 
                   {/* Bottom Bar */}
                   <div className="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
-                    <span className="font-heading text-white/40 uppercase tracking-wider">
+                    <span
+                      className="font-heading text-white/40 uppercase tracking-wider"
+                      style={{
+                        transition: 'opacity 0.3s ease',
+                      }}
+                    >
                       {isActive ? pillar.metricLabel : 'Click to inspect'}
                     </span>
                     <span
-                      className={`font-bold transition-transform duration-300 ${
-                        isActive ? 'text-brand-red translate-x-1' : 'text-white/30 group-hover:translate-x-1'
-                      }`}
+                      className="font-bold"
+                      style={{
+                        color: isActive ? 'var(--color-brand-red, #FA0000)' : 'rgba(255,255,255,0.3)',
+                        transform: isActive ? 'translateX(4px)' : 'translateX(0)',
+                        transition: 'color 0.3s ease, transform 0.3s ease',
+                      }}
                     >
                       {isActive ? '● ACTIVE' : '→'}
                     </span>
