@@ -135,6 +135,8 @@ export default function ServicesSection() {
                 <div
                   key={pillar.id}
                   onClick={() => setActivePillarId(pillar.id)}
+                  onMouseEnter={() => setActivePillarId(pillar.id)}
+                  onFocus={() => setActivePillarId(pillar.id)}
                   tabIndex={0}
                   role="button"
                   aria-expanded={isActive}

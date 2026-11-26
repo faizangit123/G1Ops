@@ -39,7 +39,7 @@ export default function ServiceHero() {
       className="relative flex min-h-screen flex-col items-center justify-start overflow-hidden bg-white px-4 sm:flex-row sm:justify-center"
       aria-label="Services we provide"
     >
-      <div className="relative mt-6 flex w-full items-start justify-center -space-x-14 sm:hidden">
+      <div className="relative mt-12 flex w-full items-start justify-center -space-x-14 sm:hidden">
         {mobileTeam.map((person) => (
           <img
             key={person.src}

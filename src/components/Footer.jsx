@@ -187,70 +187,110 @@ export default function Footer({ onReplayIntro }) {
           </div>
         </div>
 
-        {/* ─── Structured Link Directory & Address ─── */}
-        <div className="py-14 md:py-20 border-b border-white/[0.08] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-10 md:gap-14">
+        {/* ─── Structured Link Directory & Address (Refined Cards Layout) ─── */}
+        <div className="py-14 md:py-20 border-b border-white/[0.08] grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
           
-          {/* Navigation Links */}
-          <div className="md:col-span-4">
-            <span className="font-heading text-xs uppercase tracking-[0.25em] text-brand-red font-bold block mb-6">
-              Navigation
-            </span>
-            <ul className="space-y-3 font-heading text-sm">
-              {navLinks.map((l) => (
-                <li key={l.label}>
-                  <Link
-                    to={l.href}
-                    className="text-white/65 hover:text-brand-red transition-all inline-flex items-center gap-1.5 group"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-brand-red/50 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span className="group-hover:translate-x-1 transition-transform">{l.label}</span>
-                  </Link>
+          {/* Navigation Links Card */}
+          <div className="md:col-span-3 rounded-2xl bg-white/[0.02] border border-white/[0.06] p-6 sm:p-7 hover:border-white/12 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-5">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
+                <span className="font-heading text-xs uppercase tracking-[0.25em] text-brand-red font-bold">
+                  Navigation
+                </span>
+              </div>
+              <ul className="space-y-2.5 font-heading text-sm">
+                {navLinks.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      to={l.href}
+                      className="text-white/65 hover:text-white transition-all inline-flex items-center gap-2 group w-full"
+                    >
+                      <span className="text-brand-red text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                        →
+                      </span>
+                      <span className="group-hover:translate-x-0.5 transition-transform">{l.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Core Capabilities Card */}
+          <div className="md:col-span-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] p-6 sm:p-7 hover:border-white/12 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-5">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
+                <span className="font-heading text-xs uppercase tracking-[0.25em] text-brand-red font-bold">
+                  Core Capabilities
+                </span>
+              </div>
+              <ul className="space-y-3 font-body text-sm text-white/70">
+                <li className="flex items-start gap-3 group">
+                  <span className="w-5 h-5 rounded-md bg-brand-red/10 border border-brand-red/25 text-brand-red flex items-center justify-center text-xs shrink-0 font-bold mt-0.5">
+                    ✓
+                  </span>
+                  <span className="group-hover:text-white transition-colors">
+                    Mechanized Housekeeping & Sanitization
+                  </span>
                 </li>
-              ))}
-            </ul>
+                <li className="flex items-start gap-3 group">
+                  <span className="w-5 h-5 rounded-md bg-brand-red/10 border border-brand-red/25 text-brand-red flex items-center justify-center text-xs shrink-0 font-bold mt-0.5">
+                    ✓
+                  </span>
+                  <span className="group-hover:text-white transition-colors">
+                    Perimeter Guarding & Electronic Security
+                  </span>
+                </li>
+                <li className="flex items-start gap-3 group">
+                  <span className="w-5 h-5 rounded-md bg-brand-red/10 border border-brand-red/25 text-brand-red flex items-center justify-center text-xs shrink-0 font-bold mt-0.5">
+                    ✓
+                  </span>
+                  <span className="group-hover:text-white transition-colors">
+                    Critical MEP Engineering & HVAC Operations
+                  </span>
+                </li>
+                <li className="flex items-start gap-3 group">
+                  <span className="w-5 h-5 rounded-md bg-brand-red/10 border border-brand-red/25 text-brand-red flex items-center justify-center text-xs shrink-0 font-bold mt-0.5">
+                    ✓
+                  </span>
+                  <span className="group-hover:text-white transition-colors">
+                    Statutory Payroll & Workforce Governance
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div className="pt-4 mt-4 border-t border-white/[0.06] text-xs font-heading text-white/40">
+              ISO 9001:2015 Audited · 100% PF/ESI Compliant
+            </div>
           </div>
 
-          {/* Core Services */}
-          <div className="md:col-span-4">
-            <span className="font-heading text-xs uppercase tracking-[0.25em] text-brand-red font-bold block mb-6">
-              Core Capabilities
-            </span>
-            <ul className="space-y-3 font-body text-sm text-white/65">
-              <li className="flex items-center gap-2">
-                <span className="text-brand-red text-xs">✓</span>
-                <span>Mechanized Housekeeping & Sanitization</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-brand-red text-xs">✓</span>
-                <span>Perimeter Guarding & Electronic Security</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-brand-red text-xs">✓</span>
-                <span>Critical MEP Engineering & HVAC Operations</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-brand-red text-xs">✓</span>
-                <span>Statutory Payroll & Workforce Governance</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Registered Head Office */}
-          <div className="md:col-span-4">
-            <span className="font-heading text-xs uppercase tracking-[0.25em] text-brand-red font-bold block mb-6">
-              Registered Head Office
-            </span>
-            <address className="not-italic font-body text-sm text-white/65 leading-relaxed space-y-1">
-              <span className="text-white font-bold block text-base mb-1">
-                G1 Ops Facility Services Pvt. Ltd.
-              </span>
-              <span>No. 1313/1A, 200 Feet Inner Ring Road,</span>
-              <span>Madhavaram, Chennai – 600 110,</span>
-              <span>Tamil Nadu, India.</span>
-              <span className="block text-white/35 text-xs pt-2">
-                Landmark: Near Greenfield Chennai International School
-              </span>
-            </address>
+          {/* Registered Head Office Card */}
+          <div className="md:col-span-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] p-6 sm:p-7 hover:border-white/12 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-5">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
+                <span className="font-heading text-xs uppercase tracking-[0.25em] text-brand-red font-bold">
+                  Registered Head Office
+                </span>
+              </div>
+              <address className="not-italic font-body text-sm text-white/70 leading-relaxed space-y-1.5">
+                <span className="text-white font-bold block text-base mb-1 font-heading">
+                  G1 Ops Facility Services Pvt. Ltd.
+                </span>
+                <span className="block">No. 1313/1A, 200 Feet Inner Ring Road,</span>
+                <span className="block">Madhavaram, Chennai – 600 110,</span>
+                <span className="block">Tamil Nadu, India.</span>
+                <span className="block text-white/40 text-xs pt-2">
+                  Landmark: Near Greenfield Chennai International School
+                </span>
+              </address>
+            </div>
+            <div className="pt-4 mt-4 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-white/50">
+              <span>CHENNAI HQ</span>
+              <span className="text-brand-red font-bold">● ACTIVE 24/7</span>
+            </div>
           </div>
         </div>
 
