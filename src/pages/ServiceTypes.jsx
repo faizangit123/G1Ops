@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const services = [
   {
@@ -140,8 +141,8 @@ function ServiceCard({ service, active, onActivate }) {
 
           {/* CTA */}
           <div className="mt-8">
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className={`
                 inline-flex items-center gap-4
                 text-sm font-bold
@@ -161,7 +162,7 @@ function ServiceCard({ service, active, onActivate }) {
               >
                 →
               </span>
-            </a>
+            </Link>
           </div>
         </div>
 

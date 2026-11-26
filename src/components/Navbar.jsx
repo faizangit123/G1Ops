@@ -11,7 +11,7 @@ const links = [
   { label: 'Services', href: '/services', id: 'services' },
   { label: 'Sectors', href: '/#sectors', id: 'sectors' },
   { label: 'Clients', href: '/#sectors', id: 'clients' },
-  { label: 'Careers', href: '/contact', id: 'careers' },
+  { label: 'Careers', href: '#', id: 'careers', isStatic: true },
   { label: 'Contact', href: '/contact', id: 'contact' },
 ]
 
@@ -70,16 +70,28 @@ export default function Navbar() {
           {/* Desktop Navigation (Clean, high-contrast, elegant links) */}
           {desktop && (
             <nav className="flex items-center gap-1 bg-white/90 border border-brand-navy/12 rounded-full px-4 py-1.5 backdrop-blur-md shadow-xs">
-              {links.map((l) => (
-                <Link
-                  key={l.label}
-                  to={l.href}
-                  className="relative px-3.5 py-1.5 text-[0.84rem] font-heading font-bold text-brand-navy hover:text-brand-red tracking-wide rounded-full transition-colors duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red"
-                >
-                  <span className="relative z-10">{l.label}</span>
-                  <span className="absolute inset-0 bg-brand-navy/[0.06] rounded-full opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200" />
-                </Link>
-              ))}
+              {links.map((l) =>
+                l.isStatic ? (
+                  <button
+                    key={l.label}
+                    type="button"
+                    onClick={(e) => e.preventDefault()}
+                    className="relative px-3.5 py-1.5 text-[0.84rem] font-heading font-bold text-brand-navy hover:text-brand-red tracking-wide rounded-full transition-colors duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red cursor-pointer"
+                  >
+                    <span className="relative z-10">{l.label}</span>
+                    <span className="absolute inset-0 bg-brand-navy/[0.06] rounded-full opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200" />
+                  </button>
+                ) : (
+                  <Link
+                    key={l.label}
+                    to={l.href}
+                    className="relative px-3.5 py-1.5 text-[0.84rem] font-heading font-bold text-brand-navy hover:text-brand-red tracking-wide rounded-full transition-colors duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red"
+                  >
+                    <span className="relative z-10">{l.label}</span>
+                    <span className="absolute inset-0 bg-brand-navy/[0.06] rounded-full opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200" />
+                  </Link>
+                )
+              )}
             </nav>
           )}
 
@@ -150,20 +162,35 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
           >
             <nav className="flex flex-col gap-4">
-              {links.map((l, i) => (
-                <MotionLink
-                  key={l.label}
-                  to={l.href}
-                  onClick={() => setOpen(false)}
-                  className="text-2xl font-display font-bold text-white hover:text-brand-red transition-colors flex items-center justify-between py-2 border-b border-white/10"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * i }}
-                >
-                  <span>{l.label}</span>
-                  <span className="text-sm font-mono text-white/30">0{i + 1}</span>
-                </MotionLink>
-              ))}
+              {links.map((l, i) =>
+                l.isStatic ? (
+                  <motion.button
+                    key={l.label}
+                    type="button"
+                    onClick={(e) => e.preventDefault()}
+                    className="text-2xl font-display font-bold text-white hover:text-brand-red transition-colors flex items-center justify-between py-2 border-b border-white/10 w-full text-left cursor-pointer"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * i }}
+                  >
+                    <span>{l.label}</span>
+                    <span className="text-sm font-mono text-white/30">0{i + 1}</span>
+                  </motion.button>
+                ) : (
+                  <MotionLink
+                    key={l.label}
+                    to={l.href}
+                    onClick={() => setOpen(false)}
+                    className="text-2xl font-display font-bold text-white hover:text-brand-red transition-colors flex items-center justify-between py-2 border-b border-white/10"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * i }}
+                  >
+                    <span>{l.label}</span>
+                    <span className="text-sm font-mono text-white/30">0{i + 1}</span>
+                  </MotionLink>
+                )
+              )}
             </nav>
 
             <div className="flex flex-col gap-4 pt-6">

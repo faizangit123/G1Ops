@@ -9,7 +9,7 @@ const navLinks = [
   { label: 'Services', href: '/services' },
   { label: 'Sectors', href: '/#sectors' },
   { label: 'Clients', href: '/#sectors' },
-  { label: 'Careers', href: '/contact' },
+  { label: 'Careers', href: '#', isStatic: true },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -202,15 +202,28 @@ export default function Footer({ onReplayIntro }) {
               <ul className="space-y-2.5 font-heading text-sm">
                 {navLinks.map((l) => (
                   <li key={l.label}>
-                    <Link
-                      to={l.href}
-                      className="text-white/65 hover:text-white transition-all inline-flex items-center gap-2 group w-full"
-                    >
-                      <span className="text-brand-red text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
-                        →
-                      </span>
-                      <span className="group-hover:translate-x-0.5 transition-transform">{l.label}</span>
-                    </Link>
+                    {l.isStatic ? (
+                      <button
+                        type="button"
+                        onClick={(e) => e.preventDefault()}
+                        className="text-white/65 hover:text-white transition-all inline-flex items-center gap-2 group w-full text-left cursor-pointer"
+                      >
+                        <span className="text-brand-red text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                          →
+                        </span>
+                        <span className="group-hover:translate-x-0.5 transition-transform">{l.label}</span>
+                      </button>
+                    ) : (
+                      <Link
+                        to={l.href}
+                        className="text-white/65 hover:text-white transition-all inline-flex items-center gap-2 group w-full"
+                      >
+                        <span className="text-brand-red text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                          →
+                        </span>
+                        <span className="group-hover:translate-x-0.5 transition-transform">{l.label}</span>
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
