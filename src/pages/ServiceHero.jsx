@@ -80,7 +80,7 @@ export default function ServiceHero() {
         <h1 className="font-sans text-3xl font-extrabold tracking-tight text-[#0B1D48] drop-shadow-[0_8px_10px_rgba(11,29,72,0.2)] sm:text-5xl">
           <span className="text-red-500">Services</span>
           <br />
-          we promise to Deliver
+          We Promise to Deliver
         </h1>
         <p className="mt-8 font-sans text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
           At G1OPS, we provide integrated facility management and workforce solutions that 
